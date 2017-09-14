@@ -1,11 +1,6 @@
 # stream-solder
 Reactive state handling for React.js using Kefir.js and Ramda.js
 
-## Installation
-```
-npm install @bosmare/stream-solder
-```
-
 ## Example usage
 Client for a multi-user counter app (ES6)
 
@@ -29,21 +24,23 @@ React.render(<App />, document.getElementByID('app'))
 ```
 import {connect} from 'stream-solder'
 
-const Counter = ({count, onCountAdded}) => ({
+const Counter = ({count, serverMessage, onCountAdded}) => ({
     <div>
         <h1> {this.state.count + 1} </h1>
         <button onClick={onCountAdded}> +1 </button>
+        {serverMessage || null}
     </div>
 })
 
 export default connect(
-    'count',
+    'count serverMessage',
     'onCountAdded'
 )(Counter)
 ```
 
 ### streamDefinitions.js
 ```
+import {pickKeys} from 'stream-solder/utils'
 import {openWS, sendCountAdded} from './api.js'
 
 //names of streams originating from the application
@@ -53,14 +50,16 @@ const actions = [
 
 //names of property streams and their initial values
 const properties = {
-    count: 0
+    count: 0,
+    serverMessage: ''
 }
 
 //functions for defining reactive streams
 //take a list of event streams
 const connections = [
-    () => ({count: openWS()}),
+    () => ({fromWS: openWS()}),
     ({onCountAdded}) => {sendCountAdded(onCountAdded)},
+    ({fromWS}) => pickKeys(['count', 'serverMessage'], fromWS)
 ]
 
 export default {actions, properties, connections}
