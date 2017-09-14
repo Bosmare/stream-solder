@@ -1,0 +1,23 @@
+{
+  "name": "stream-solder",
+  "version": "0.1.0",
+  "description": "A Library for connecting Kefir.js streams to eachother and the rest of the application",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bosmare/stream-solder.git"
+  },
+  "keywords": [
+    "Kefir.js",
+    "reactive"
+  ],
+  "author": "Bosco Martinez <martinez.bosco@gmail.com> (https://github.com/Bosmare/)",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/Bosmare/stream-solder/issues"
+  },
+  "homepage": "https://github.com/Bosmare/stream-solder#readme"
+}
